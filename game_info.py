@@ -16,41 +16,68 @@ import pprint
 
 # https://www.thesportsdb.com/
 
-# URL = "https://ncaa-api.henrygd.me/rankings/football/fbs/associated-press"
-URL = " https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
+URL = 'https://ncaa-api.henrygd.me'
+
 def main():
-	# domain = '/scoreboard/football/fbs/2023/13/all-conf'
-	domain = ''
+	# espn_hidden()
+	ncaa_api()
+
+
+
+def ncaa_api():
+	url = '/scoreboard/basketball-men/d1/2025'
+
+	# print(URL+url)
 	try:
-		response = requests.get(URL+domain)
+		response = requests.get(URL+url)
 		json_response = json.loads(response.text)
-		# response keys = ['leagues', 'groups', 'day', 'events', 'eventsDate'])
+	except Exception as e:
+		raise(e)
 
-		# with open('score_output.json', 'w', encoding='utf-8') as f:
-		# 	json.dump(json_response, f, ensure_ascii=False, indent=4)
+	games = json_response['games']
+	for game in games:
+		away = game['game']['away']
+		print(f"\nGameID:{game['game']['gameID']}")
+		print(f"{away['names']['short']}: {away['score']}")
+		home = game['game']['home']
+		print(f"{home['names']['short']}: {home['score']}")
 
-		events = json_response['events']
-		# x=0
-		# for item in events:
-		# 	print(item['name'])
-		# 	if item['name'] == 'Georgia Bulldogs at Gonzaga Bulldogs':
-		# 		print(x)
-		# 	x+=1
+	# with open('score_output.json', 'w', encoding='utf-8') as f:
+	# 	json.dump(json_response['games'], f, ensure_ascii=False, indent=4)
 
-		# in progress game keys = ['id', 'uid', 'date', 'attendance', 'type', 'timeValid', 'neutralSite', 'conferenceCompetition', 'playByPlayAvailable', 'recent', 'venue', 'competitors', 'notes', 'situation', 'status', 'broadcasts', 'tournamentId', 'format', 'startDate', 'broadcast', 'geoBroadcasts', 'highlights']
+def ncaa_get_schools():
+	endpoint = '/schools-index'
+	try:
+		response = requests.get(URL+endpoint)
+		json_response = json.loads(response.text)
+	except Exception as e:
+		raise(e)
+	return(json_response)
 
-		competitors = events[3]['competitions'][0]
-		print(events[3]['status']['type']['name']) #STATUS_IN_PROGRESS
-		# competitors len=2, one for each team
+def espn_hidden():
+	url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
 
-		for team in competitors:
-			print()
-		with open('score_output.json', 'w', encoding='utf-8') as f:
-			json.dump(events[3]['competitions'][0]['competitors'][0], f, ensure_ascii=False, indent=4)
-
+	try:
+		response = requests.get(url)
+		json_response = json.loads(response.text)
 
 	except Exception as e:
 		raise(e)
+
+	events = json_response['events']
+	for item in events:
+		print(f"Event Name: {item['name']}")
+		print(f"Game Status: {item['status']['type']['name']}")
+
+		competitors = item['competitions'][0]
+		for team in competitors['competitors']:
+			team_name = team['team']['displayName']
+			score = team['score']
+			print(f"{team_name}: {score}")
+		print("\n**************************************************\n")
+
+		# with open('score_output.json', 'w', encoding='utf-8') as f:
+		# 	json.dump(events[2]['competitions'][0]['competitors'][0], f, ensure_ascii=False, indent=4)
 
 if __name__=="__main__":
     main()
