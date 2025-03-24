@@ -1,2 +1,4 @@
 api_key
 output.txt
+*.txt
+*.json

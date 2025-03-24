@@ -4,18 +4,6 @@ import json
 from pprint import pformat
 import pprint
 
-# Option + CMD + left or right arrow
-
-# https://stats.ncaa.org/
-# https://github.com/henrygd/ncaa-api
-
-# https://gist.github.com/akeaswaran/b48b02f1c94f873c6655e7129910fc3b?permalink_comment_id=4995211
-
-# https://sportsdata.io/developers/api-documentation/ncaa-basketball#games--by-date-live--final
-# Free tier, but requires signing up
-
-# https://www.thesportsdb.com/
-
 URL = 'https://ncaa-api.henrygd.me'
 
 def main():

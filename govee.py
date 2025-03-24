@@ -16,8 +16,9 @@ def main():
 	for item in my_devices:
 		if item['type'] == 'devices.types.light':
 			print(item['deviceName'])
-			# get_state(item, key)
-			get_dynamic_scene(item, key)
+			print(item)
+			get_state(item, key)
+			# get_dynamic_scene(item, key)
 
 def get_dynamic_scene(device, key):
 	url = '/router/api/v1/device/scenes'
@@ -57,7 +58,6 @@ def get_state(device, key):
 	except Exception as e:
 		raise(e)
 
-
 def get_devices(key):
 	url = '/router/api/v1/user/devices'
 	headers = {'Govee-API-Key': key, 'Content-Type': 'application/json'}
@@ -74,7 +74,6 @@ def get_devices(key):
 
 	except Exception as e:
 		raise(e)
-
 
 if __name__=="__main__":
 	main()
