@@ -27,14 +27,14 @@ Free tier, but requires signing up
 https://www.thesportsdb.com/
 
 ## To Do
-- [ ] Set Govee light scene
+- [x] Get current NCAA games and scores
+- [x] Get Govee products and state
+- [x] Set Govee light scene
 - [ ] Unit Tests
 - [ ] Docummentation
 - [ ] Deploy to AWS Lambda
 - [ ] Stateful components to manage NCAA data
 - [ ] Deployment Automation
-
-<!-- - [x] completed task -->
 
 
 ## Status

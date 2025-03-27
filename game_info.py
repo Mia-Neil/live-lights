@@ -14,8 +14,6 @@ def main():
 
 def ncaa_api():
 	url = '/scoreboard/basketball-men/d1/2025'
-
-	# print(URL+url)
 	try:
 		response = requests.get(URL+url)
 		json_response = json.loads(response.text)
